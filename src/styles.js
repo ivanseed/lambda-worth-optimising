@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  text-align: center;
+    text-align: center;
 
-  height: 100%;
-  
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
 export const Heading = styled.h1`

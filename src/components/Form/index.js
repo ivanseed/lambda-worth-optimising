@@ -2,7 +2,15 @@ import React from 'react';
 
 import * as Styled from './styles';
 
-const Form = ({ price, invocations, memory, execution, lifespan, salary, updateValue }) => {
+const Form = ({
+    price,
+    invocations,
+    memory,
+    execution,
+    lifespan,
+    salary,
+    updateValue,
+}) => {
     const getMonthSuffix = () => {
         if (parseInt(lifespan, 10) === 1) {
             return 'month';
@@ -15,35 +23,44 @@ const Form = ({ price, invocations, memory, execution, lifespan, salary, updateV
         <Styled.Container>
             <Styled.InnerContainer>
                 <Styled.Item>
-                    <Styled.Label htmlFor="price">Price per GB Second</Styled.Label>
+                    <Styled.Label htmlFor="price">
+                        Price per GB Second
+                    </Styled.Label>
                     <Styled.PrefixInput suffix="$">
                         <Styled.CurrencyInput
                             id="price"
                             type="number"
                             min="0"
                             value={price}
-                            onChange={e => {
+                            onChange={(e) => {
                                 updateValue('price', e.target.value);
                             }}
                         />
                     </Styled.PrefixInput>
                 </Styled.Item>
                 <Styled.Item>
-                    <Styled.Label htmlFor="invocations">Invocations per minute</Styled.Label>
+                    <Styled.Label htmlFor="invocations">
+                        Invocations per minute
+                    </Styled.Label>
                     <Styled.Input
                         id="invocations"
                         type="number"
                         step="1"
                         min="0"
                         value={invocations}
-                        onChange={e => {
+                        onChange={(e) => {
                             updateValue('invocations', e.target.value);
                         }}
                     />
                 </Styled.Item>
                 <Styled.Item>
-                    <Styled.Label htmlFor="memory">Memory configuration</Styled.Label>
-                    <Styled.SuffixInput suffix="MB" length={memory.toString().length}>
+                    <Styled.Label htmlFor="memory">
+                        Memory configuration
+                    </Styled.Label>
+                    <Styled.SuffixInput
+                        suffix="MB"
+                        length={memory.toString().length}
+                    >
                         <Styled.Input
                             id="memory"
                             type="number"
@@ -51,7 +68,7 @@ const Form = ({ price, invocations, memory, execution, lifespan, salary, updateV
                             min="128"
                             max="10240"
                             value={memory}
-                            onChange={e => {
+                            onChange={(e) => {
                                 updateValue('memory', e.target.value);
                             }}
                             onBlur={() => {
@@ -67,15 +84,20 @@ const Form = ({ price, invocations, memory, execution, lifespan, salary, updateV
                     </Styled.SuffixInput>
                 </Styled.Item>
                 <Styled.Item>
-                    <Styled.Label htmlFor="execution">Current execution time</Styled.Label>
-                    <Styled.SuffixInput suffix="ms" length={execution.toString().length}>
+                    <Styled.Label htmlFor="execution">
+                        Current execution time
+                    </Styled.Label>
+                    <Styled.SuffixInput
+                        suffix="ms"
+                        length={execution.toString().length}
+                    >
                         <Styled.Input
                             id="execution"
                             type="number"
                             step="1"
                             min="0"
                             value={execution}
-                            onChange={e => {
+                            onChange={(e) => {
                                 updateValue('execution', e.target.value);
                             }}
                             onBlur={() => {
@@ -83,23 +105,28 @@ const Form = ({ price, invocations, memory, execution, lifespan, salary, updateV
                                     updateValue('execution', 900000);
                                 }
 
-                                if (!execution || execution < 0) {
-                                    updateValue('execution', 1);
+                                if (!execution || execution < 2) {
+                                    updateValue('execution', 100);
                                 }
                             }}
                         />
                     </Styled.SuffixInput>
                 </Styled.Item>
                 <Styled.Item>
-                    <Styled.Label htmlFor="lifespan">Lifespan of function</Styled.Label>
-                    <Styled.SuffixInput suffix={getMonthSuffix()} length={lifespan.toString().length}>
+                    <Styled.Label htmlFor="lifespan">
+                        Lifespan of function
+                    </Styled.Label>
+                    <Styled.SuffixInput
+                        suffix={getMonthSuffix()}
+                        length={lifespan.toString().length}
+                    >
                         <Styled.Input
                             id="lifespan"
                             type="number"
                             step="1"
                             min="0"
                             value={lifespan}
-                            onChange={e => {
+                            onChange={(e) => {
                                 updateValue('lifespan', e.target.value);
                             }}
                             onBlur={() => {
@@ -111,7 +138,9 @@ const Form = ({ price, invocations, memory, execution, lifespan, salary, updateV
                     </Styled.SuffixInput>
                 </Styled.Item>
                 <Styled.Item>
-                    <Styled.Label htmlFor="salary">Development cost per hour</Styled.Label>
+                    <Styled.Label htmlFor="salary">
+                        Development cost per hour
+                    </Styled.Label>
                     <Styled.PrefixInput suffix="$">
                         <Styled.CurrencyInput
                             id="salary"
@@ -119,7 +148,7 @@ const Form = ({ price, invocations, memory, execution, lifespan, salary, updateV
                             step="1"
                             min="0"
                             value={salary}
-                            onChange={e => {
+                            onChange={(e) => {
                                 updateValue('salary', e.target.value);
                             }}
                             onBlur={() => {

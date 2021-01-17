@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
-import Form from "../../components/Form";
-import Table from "../../components/Table";
-import Terminal from "../../components/Terminal";
+import Form from '../../components/Form';
+import Table from '../../components/Table';
+import { Heading } from './styles';
 
 const defaultState = {
     price: 0.0000166667,
@@ -10,13 +10,7 @@ const defaultState = {
     execution: 200,
     lifespan: 18,
     salary: 25,
-    hours: [
-        1,
-        2,
-        4,
-        8,
-        16
-    ]
+    hours: [1, 2, 4, 8, 16],
 };
 
 const reducer = (state, action) => {
@@ -24,7 +18,7 @@ const reducer = (state, action) => {
         case 'update':
             return {
                 ...state,
-                [action.key]: action.value
+                [action.key]: action.value,
             };
         default:
             throw new Error();
@@ -38,23 +32,26 @@ const Calculator = () => {
         dispatch({
             type: 'update',
             key,
-            value
+            value,
         });
     };
 
     const calcTimes = () => {
         // 43800 minutes in a month
         const totalInvocations = state.invocations * 43800 * state.lifespan;
-        const oldCost = (state.price / 1000) * (state.memory / 1024) * state.execution * totalInvocations;
-        console.log(oldCost);
+        const oldCost =
+            (state.price / 1000) *
+            (state.memory / 1024) *
+            state.execution *
+            totalInvocations;
 
         const data = {
             times: [],
-            savings: {}
+            savings: {},
         };
         let last = 0;
 
-        for (let i = 1; i < 10; i++) {
+        for (let i = 1; i < 10; i += 1) {
             const time = Math.ceil(state.execution * ((10 - i) / 10));
 
             if (time !== last) {
@@ -63,30 +60,33 @@ const Calculator = () => {
             }
         }
 
-        for (const hour of state.hours) {
-            const savings = data.times.map(time => {
-                const newCost = (state.price / 1000) * (state.memory / 1024) * time * totalInvocations;
+        state.hours.forEach((hour) => {
+            const savings = data.times.map((time) => {
+                const newCost =
+                    (state.price / 1000) *
+                    (state.memory / 1024) *
+                    time *
+                    totalInvocations;
                 const devCost = hour * state.salary;
 
                 return Math.round(oldCost - newCost - devCost);
             });
 
             data.savings[hour] = savings;
-        }
+        });
 
         return data;
     };
-
-    console.log(calcTimes());
 
     const data = calcTimes();
 
     return (
         <>
             <Form {...state} updateValue={updateValue} />
+            <Heading>Cost Savings</Heading>
             <Table data={data} />
         </>
-    )
+    );
 };
 
 export default Calculator;
